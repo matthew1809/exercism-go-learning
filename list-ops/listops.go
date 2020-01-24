@@ -1,9 +1,5 @@
 package listops
 
-import "fmt"
-
-// import "fmt"
-
 type IntList []int
 
 type binFunc func(int, int) int
@@ -17,20 +13,14 @@ func (input IntList) Foldr(function binFunc, inputInt int) int {
 
 	if len(input) > 0 {
 		input[0] = function(inputInt, input[0])
-		fmt.Println("current output", inputInt, "being acted on in relation to next list item", input[0], "resulting in", function(inputInt, input[0]))
 		output = input[0]
 		for i := 0; i < len(input)-1; i++ {
-			fmt.Println("current output", output, "being acted on in relation to next list item", input[i+1], "resulting in", function(output, input[i+1]))
-			output = function(output, input[i+1])
+			output = function(input[i+1], output)
 		}
 	} else {
 		output = inputInt
-
-		fmt.Println("returning", output)
 		return output
 	}
-	fmt.Println("returning", output)
-
 	return output
 }
 
@@ -41,9 +31,7 @@ func (input IntList) Foldl(function binFunc, inputInt int) int {
 		input[0] = function(inputInt, input[0])
 		output = input[0]
 		for i := 0; i < len(input)-1; i++ {
-			fmt.Println("current output", output, "being acted on in relation to next list item", input[i+1])
 			output = function(output, input[i+1])
-			fmt.Println("result of computation is", output)
 		}
 	} else {
 		output = inputInt
